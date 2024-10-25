@@ -11,8 +11,6 @@ urlpatterns = [
     path('summary/',Summary.as_view()),
     path('createProfile/',CreateProfile.as_view()),
     path('updateProfile/<int:pk>/',UpdateProfile.as_view( {'patch': 'partial_update'})),
-
-
     path('auth/register/', include('dj_rest_auth.registration.urls'))
 
 
