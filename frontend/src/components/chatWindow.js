@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const ChatWindow = ({name}) => {
+const ChatWindow = ({ name, profileId }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(
+    JSON.parse(localStorage.getItem("chatMessages")) || []
+  );
   const [inputMessage, setInputMessage] = useState("");
 
   const key = localStorage.getItem("key");
@@ -11,7 +13,7 @@ const ChatWindow = ({name}) => {
   // Load messages from localStorage on component mount
   useEffect(() => {
     const savedMessages = localStorage.getItem("chatMessages");
-    if (savedMessages) {
+    if (savedMessages?.length > 0) {
       setMessages(JSON.parse(savedMessages));
     }
   }, []);
@@ -19,6 +21,7 @@ const ChatWindow = ({name}) => {
   // Save messages to localStorage whenever they are updated
   useEffect(() => {
     localStorage.setItem("chatMessages", JSON.stringify(messages));
+    console.log("Messages: ", messages);
   }, [messages]);
 
   const sendMessageToApi = async (date, message) => {
@@ -27,15 +30,8 @@ const ChatWindow = ({name}) => {
       return;
     }
     const data = {
-      msg: inputMessage,
-      date: selectedDate
-        ? `${selectedDate.getFullYear()}-${(selectedDate.getMonth() + 1)
-            .toString()
-            .padStart(2, "0")}-${selectedDate
-            .getDate()
-            .toString()
-            .padStart(2, "0")}`
-        : "",
+      prompt: inputMessage,
+      id: profileId,
     };
     try {
       const response = await axios.post("http://127.0.0.1:8000/aichat/", data, {
@@ -99,25 +95,25 @@ const ChatWindow = ({name}) => {
       </h2>
 
       <div className="chat-window bg-gray-200 p-4 rounded-lg overflow-y-auto h-80 mb-4">
-        {messages.length > 0 ? (
-          messages.map((msg, idx) => (
+        {messages?.length > 0 ? (
+          messages?.map((msg, idx) => (
             <div
               key={idx}
               className={`mb-3 ${
-                msg.type === "user" ? "text-right" : "text-left"
+                msg?.type === "user" ? "text-right" : "text-left"
               }`}
             >
               <div
                 className={`inline-block p-3 rounded-lg ${
-                  msg.type === "user"
+                  msg?.type === "user"
                     ? "bg-green-500 text-white"
                     : "bg-gray-300 text-black"
                 }`}
               >
-                <p>{msg.content}</p>
-                <span className="text-xs text-gray-600 block">
+                <p>{msg?.content}</p>
+                {/* <span className="text-xs text-gray-600 block">
                   {msg.date.toDateString()}
-                </span>
+                </span> */}
               </div>
             </div>
           ))

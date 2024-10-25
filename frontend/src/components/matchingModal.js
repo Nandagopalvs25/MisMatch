@@ -78,13 +78,13 @@ const MatchingModal = ({ onMatchComplete }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative w-11/12 max-w-md p-8 bg-white rounded-lg shadow-lg">
+      <div className="relative w-11/12 max-w-md p-8 bg-[#f6e67ee2] rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-center mb-4">
           Finding Your Match...
         </h2>
         <div className="relative w-full h-48 flex justify-center items-center mt-4">
           {isMatching && tempUser && (
-            <div className="w-full px-6 py-4 bg-pink-500 text-center rounded-lg shadow-lg transition-transform duration-200 animate-swipe">
+            <div className="w-full px-6 py-4 bg-[#e94343c8] text-center rounded-lg shadow-lg transition-transform duration-200 animate-swipe">
               <h3 className="text-lg font-bold text-gray-800">
                 {tempUser.name}
               </h3>
@@ -93,7 +93,7 @@ const MatchingModal = ({ onMatchComplete }) => {
           )}
 
           {matchedUser && (
-            <div className="w-full px-6 py-4 bg-pink-100 text-center rounded-lg shadow-lg transition-transform transform scale-110 animate-pop">
+            <div className="w-full px-6 py-4 bg-[#e14848d0] text-center rounded-lg shadow-lg transition-transform transform scale-110 animate-pop">
               <h3 className="text-lg font-bold text-gray-800">
                 {matchedUser?.name}
               </h3>
