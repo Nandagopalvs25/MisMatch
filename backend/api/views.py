@@ -74,8 +74,19 @@ class UpdateProfile(ModelViewSet):
 class FindMatch(APIView):
    def get(self,request):
       user = User.objects.get(id=request.user.id)
+      profile_id=UserProfile.objects.get(user=user.id)
       user_data = []
-      profiles = UserProfile.objects.all()
+      profiles = UserProfile.objects.exclude(id=profile_id.id)
+      for profile in profiles:
+          user_info = {
+              'username':profile.user.username,
+            'personality': profile.personality,
+            'interests': profile.interests,
+            'summary': profile.summary
+           }
+          user_data.append(user_info)
+      print(user_data)
+      return HttpResponse(status=status.HTTP_200_OK)
       
 
 
