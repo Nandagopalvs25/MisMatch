@@ -4,7 +4,7 @@ import json
 from django.conf import settings
 import google.generativeai as genai
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile,Conversation
 from rest_framework.views import APIView
 from django.views.generic.edit import CreateView,UpdateView
 from .serializers import ProfileSerializer
@@ -53,7 +53,10 @@ class CreateProfile(APIView):
               interest = request.data.get("interests","")
               summary= request.data.get("summary","")
               personality= request.data.get("personailty","")
-              profile=UserProfile.objects.create(user=user,summary=summary,interests=interest,personality=personality)
+              preference= request.data.get("preferences","")
+              age= request.data.get("age","")
+              gender= request.data.get("gender","")
+              profile=UserProfile.objects.create(user=user,summary=summary,interests=interest,personality=personality,preferences=preference,age=age,gender=gender)
               return Response(status=status.HTTP_201_CREATED)
               
     def get(self,request):
@@ -78,6 +81,7 @@ class FindMatch(APIView):
       userprofile={
           'username':profile.user.username,
           'personality':profile.personality,
+          'preference_in_partner':profile.preferences,
           'interests':profile.interests,
           'summary':profile.summary
       }
@@ -88,6 +92,7 @@ class FindMatch(APIView):
             'username':profile.user.username,
             'id':profile.user.id,
             'personality': profile.personality,
+            'preference_in_partner':profile.preferences,
             'interests': profile.interests,
             'summary': profile.summary
            }
@@ -122,6 +127,7 @@ class AiChatWindow(APIView):
               print(matched_user.user.username)
               userprofile={
                   "username":matched_user.user.username,
+                  "gender":matched_user.gender,
                   "user_summary":matched_user.summary,
                   "user_interests":matched_user.interests,
                   "user_personality":matched_user.personality
@@ -132,16 +138,22 @@ class AiChatWindow(APIView):
                 "temperature": 1,
                 "top_p": 0.95,
                 "top_k": 64,
-                "max_output_tokens": 8192,
-                "response_mime_type": "application/json",
+                "max_output_tokens": 1024,
+                "response_mime_type": "text/plain",
               }
+         
               model = genai.GenerativeModel(
               model_name="gemini-1.5-flash",
-              system_instruction="Model yourself as a person by analysing the information labelled as userprofile. Respond to prompt messages keeping the personailty mentioned in userprofile. Dont talk too much , keep sentences short to less than 60 characters",
+              system_instruction="Model yourself as a person by using  the information labeled as userprofile. Your personality is labelled as personality, and refere to the summary for more information about your character.Respond to prompt messages keeping the personality mentioned in userprofile.Keep sentences short (less than 60 characters) if the user asks for more set limit to less than 120 characters. ",
               generation_config=generation_config,
               )
-              response=model.generate_content("userprofile:"+userprofile+"prompt:"+prompt)
-
+              convo_history= Conversation.objects.filter(user=user).order_by('-timestamp')
+              convo=""
+              for i in convo_history:
+                  convo=convo+"\n"+"user:"+i.user_message+"  bot:"+i.bot_response
+              print(convo)
+              response=model.generate_content("remember this conversation history, you are the bot"+convo+"userprofile:"+userprofile+"prompt:"+prompt)
+              Conversation.objects.create(user=user,user_message=prompt,bot_response=response.text)
               return HttpResponse(response.text)
 
 
