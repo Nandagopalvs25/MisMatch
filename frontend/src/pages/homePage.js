@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "../App.css";
 
-import UploadModal from "../components/uploadModal";
+import UploadModal1 from "../components/uploadModal1";
 import MatchingModal from "../components/matchingModal";
+import UploadModal2 from "../components/uploadModal2";
 
 export default function HomePage() {
-  const [isUploadModal, setIsUploadModal] = useState(false);
+  const [isUploadModal1, setIsUploadModal1] = useState(false);
+  const [isUploadModal2, setIsUploadModal2] = useState(false);
   const [isMatchModal, setIsMatchModal] = useState(false);
   return (
     <div className="w-screen h-screen bg-grad">
@@ -16,26 +18,28 @@ export default function HomePage() {
       />
 
       <div className="sidebar absolute left-0 top-60 px-10 w-96 flex flex-col gap-10">
-        {/* <div>
-          <span>Create Match</span>
+        <div>
+          <button
+            className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
+            onClick={() => setIsUploadModal1(true)}
+          >
+            Create Profile
+          </button>
         </div>
         <div>
-          <span>Profile Details</span>
-        </div> */}
+          <button
+            className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
+            onClick={() => setIsUploadModal2(true)}
+          >
+            Update Profile
+          </button>
+        </div>
         <div>
           <button
             className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
             onClick={() => setIsMatchModal(true)}
           >
             Create Match
-          </button>
-        </div>
-        <div>
-          <button
-            className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
-            onClick={() => setIsUploadModal(true)}
-          >
-            Add details
           </button>
         </div>
         {/* <button className="relative px-6 py-3 rounded-lg bg-pink-500 text-white font-semibold shadow-lg  transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 focus:scale-95 focus:bg-pink-600">
@@ -59,7 +63,12 @@ export default function HomePage() {
         </button> */}
       </div>
 
-      {isUploadModal && <UploadModal onClose={() => setIsUploadModal(false)} />}
+      {isUploadModal1 && (
+        <UploadModal1 onClose={() => setIsUploadModal1(false)} />
+      )}
+      {isUploadModal2 && (
+        <UploadModal2 onClose={() => setIsUploadModal2(false)} />
+      )}
       {isMatchModal && <MatchingModal />}
     </div>
   );
