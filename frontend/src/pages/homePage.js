@@ -7,6 +7,7 @@ import UploadModal1 from "../components/uploadModal1";
 import MatchingModal from "../components/matchingModal";
 import UploadModal2 from "../components/uploadModal2";
 import ChatWindow from "../components/chatWindow";
+import FloatingObjects from "../components/floating";
 
 export default function HomePage() {
   const [isUploadModal1, setIsUploadModal1] = useState(false);
@@ -191,7 +192,7 @@ export default function HomePage() {
           </div>
 
           <h2 className="text-3xl font-bold text-pink-700 mb-2">
-            {profileDetails?.name}
+            {profileDetails?.user?.username}
           </h2>
           <p className="text-sm text-gray-600">
             {profileDetails?.age} years old, {profileDetails?.gender}
@@ -260,7 +261,7 @@ export default function HomePage() {
           profileId={matchedUser.id}
           // onClose={handleCloseChat}
         />
-      )}
+      )}      
     </div>
   );
 }
