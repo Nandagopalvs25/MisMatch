@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const MatchingModal = ({ onMatchComplete }) => {
   const [isMatching, setIsMatching] = useState(true);
@@ -8,16 +8,23 @@ const MatchingModal = ({ onMatchComplete }) => {
   const [swipeInterval, setSwipeInterval] = useState(null);
 
   const placeholderProfiles = [
-    { name: "User A", age: 25 },
-    { name: "User B", age: 29 },
-    { name: "User C", age: 24 },
-    { name: "User D", age: 28 },
+    { name: "Anjali", age: 25 },
+    { name: "Anand", age: 29 },
+    { name: "Anakha", age: 28 },
+    { name: "Rishit", age: 24 },
+    { name: "Adil", age: 28 },
+    { name: "Sarojini", age: 28 },
+    { name: "Anakha", age: 28 },
+    { name: "Maya", age: 28 },
   ];
 
   useEffect(() => {
     const startMatching = () => {
       const interval = setInterval(() => {
-        const randomProfile = placeholderProfiles[Math.floor(Math.random() * placeholderProfiles.length)];
+        const randomProfile =
+          placeholderProfiles[
+            Math.floor(Math.random() * placeholderProfiles.length)
+          ];
         setTempUser(randomProfile);
       }, 100);
 
@@ -27,12 +34,25 @@ const MatchingModal = ({ onMatchComplete }) => {
         clearInterval(interval);
         await fetchMatchedUser();
         setIsMatching(false);
-      }, 5000); 
+      }, 5000);
     };
 
     const fetchMatchedUser = async () => {
+      const key = localStorage.getItem("key");
+
+      if (!key) {
+        console.log("Key not found...");
+        return;
+      }
+
       try {
-        const response = await axios.get('/api/match');
+        const response = await axios.get("http://127.0.0.1:8000/findMatch", {
+          headers: {
+            Authorization: `token ${key}`,
+          },
+        });
+        console.log("findMatch Response: ", response);
+
         setMatchedUser(response.data);
       } catch (error) {
         console.error("Failed to fetch matched user", error);
@@ -59,20 +79,26 @@ const MatchingModal = ({ onMatchComplete }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-11/12 max-w-md p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold text-center mb-4">Finding Your Match...</h2>
+        <h2 className="text-2xl font-semibold text-center mb-4">
+          Finding Your Match...
+        </h2>
         <div className="relative w-full h-48 flex justify-center items-center mt-4">
           {isMatching && tempUser && (
-            <div className="w-full px-6 py-4 bg-white text-center rounded-lg shadow-lg transition-transform duration-200 animate-swipe">
-              <h3 className="text-lg font-bold text-gray-800">{tempUser.name}</h3>
+            <div className="w-full px-6 py-4 bg-pink-500 text-center rounded-lg shadow-lg transition-transform duration-200 animate-swipe">
+              <h3 className="text-lg font-bold text-gray-800">
+                {tempUser.name}
+              </h3>
               <p className="text-gray-600">Age: {tempUser.age}</p>
             </div>
           )}
 
           {matchedUser && (
             <div className="w-full px-6 py-4 bg-pink-100 text-center rounded-lg shadow-lg transition-transform transform scale-110 animate-pop">
-              <h3 className="text-lg font-bold text-gray-800">{matchedUser.name}</h3>
-              <p className="text-gray-600">Age: {matchedUser.age}</p>
-              <p className="text-gray-600 mt-2">Bio: {matchedUser.bio}</p>
+              <h3 className="text-lg font-bold text-gray-800">
+                {matchedUser?.name}
+              </h3>
+              <p className="text-gray-600">Age: {matchedUser?.id}</p>
+              {/* <p className="text-gray-600 mt-2">Bio: {matchedUser.bio}</p> */}
             </div>
           )}
         </div>
