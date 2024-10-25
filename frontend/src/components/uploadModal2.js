@@ -8,39 +8,16 @@ import { IoClose } from "react-icons/io5";
 
 const UploadModal = ({ id, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [summary, setSummary] = useState("");
-  //   const [id, setId] = useState("");
-  const [url, setUrl] = useState("");
-  const [recordType, setRecordType] = useState("");
   const [successModal, setSuccessModal] = useState(false);
 
+  const [summary, setSummary] = useState("");
   const [interestValue, setInterestValue] = useState([]);
   const [personalityValue, setPersonalityValue] = useState([]);
-
-  // useEffect(() => {
-  //   console.log("chips:", value);
-  // }, [value]);
-
-  // const getFormattedDate = () => {
-  //   const date = new Date();
-
-  //   const day = String(date.getDate()).padStart(2, "0"); // Get the day and pad it to 2 digits
-  //   const month = String(date.getMonth() + 1).padStart(2, "0"); // Get the month (0-based index) and pad to 2 digits
-  //   const year = String(date.getFullYear()).slice(2); // Get the last two digits of the year
-
-  //   return `${day}/${month}/${year}`;
-  // };
 
   const handleAddPatient = async () => {
     if (isLoading) return;
     setIsLoading(true);
     console.log("id: ", id);
-
-    // if (!id) {
-    //   alert("Id not found...");
-    //   setIsLoading(false);
-    //   return;
-    // }
 
     const key = localStorage.getItem("key");
 
@@ -51,10 +28,12 @@ const UploadModal = ({ id, onClose }) => {
     }
 
     const stringInterest = interestValue.join(", ");
+    const stringPersonality = personalityValue.join(", ");
 
     const data = {
       summary: summary,
       interests: stringInterest,
+      personality: stringPersonality,
     };
 
     console.log("data: ", data);
@@ -104,13 +83,7 @@ const UploadModal = ({ id, onClose }) => {
             <div className="flex flex-col gap-3 w-96 font-mono">
               <div className="flex flex-col">
                 <label>Interests</label>
-                {/* <input
-                  type="text"
-                  placeholder="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="p-1 rounded-lg bg-slate-100 outline-none"
-                /> */}
+
                 <div className="card p-fluid">
                   <Chips
                     value={interestValue}
@@ -122,13 +95,7 @@ const UploadModal = ({ id, onClose }) => {
               </div>
               <div className="flex flex-col">
                 <label>Personality</label>
-                {/* <input
-                  type="text"
-                  // placeholder="enter the url"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  className="p-1 rounded-lg bg-white bg-opacity-30 outline-none"
-                /> */}
+
                 <Chips
                   value={personalityValue}
                   onChange={(e) => setPersonalityValue(e.value)}
@@ -140,37 +107,11 @@ const UploadModal = ({ id, onClose }) => {
                 <label>Summary</label>
                 <input
                   type="text"
-                  // placeholder="enter the url"
                   value={summary}
                   onChange={(e) => setSummary(e.target.value)}
                   className="p-1 rounded-lg bg-white bg-opacity-30 outline-none"
                 />
               </div>
-              {/* <div className="flex flex-col">
-                <label>Record Type</label>
-                <select
-                  placeholder="enter sex orientation of patient"
-                  value={recordType}
-                  onChange={(e) => setRecordType(e.target.value)}
-                  className="p-1 rounded-lg bg-slate-100 outline-none cursor-pointer"
-                >
-                  <option selected disabled value="">
-                    select report type
-                  </option>
-                  <option value="diagnoses">Medical Record</option>
-                  <option value="medications">Transcripts</option>
-                  <option value="labresult">Photos</option>
-                </select>
-              </div> */}
-              {/* <div className="flex flex-col">
-                <label>Doctor</label>
-                <input
-                  placeholder="enter doctor assigned to patient"
-                  value={doctor}
-                  onChange={(e) => setDoctor(e.target.value)}
-                  className="p-1 rounded-lg bg-slate-100 outline-none"
-                />
-              </div> */}
             </div>
 
             <div className="flex justify-center">
@@ -183,9 +124,6 @@ const UploadModal = ({ id, onClose }) => {
               >
                 {isLoading ? "Loading..." : "Add"}
               </button>
-              {/* <button className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95">
-                {isLoading ? "Loading..." : "Add"}
-              </button> */}
             </div>
           </div>
         </div>
