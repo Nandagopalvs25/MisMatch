@@ -47,7 +47,7 @@ export default function LoginPage({ onLogin }) {
         setIsSuccessModal(true);
         setTimeout(() => {
           setIsSuccessModal(false);
-          navigate("/homePage");
+          navigate("/");
         }, 2000);
         // onLogin(); // Call the onLogin function to update the authentication state
       } else if (
