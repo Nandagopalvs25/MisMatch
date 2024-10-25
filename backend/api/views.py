@@ -86,6 +86,7 @@ class FindMatch(APIView):
       for profile in profiles:
           user_info = {
             'username':profile.user.username,
+            'id':profile.user.id,
             'personality': profile.personality,
             'interests': profile.interests,
             'summary': profile.summary
@@ -99,17 +100,16 @@ class FindMatch(APIView):
             "top_p": 0.95,
             "top_k": 64,
             "max_output_tokens": 8192,
-            "response_mime_type": "text/plain",
+            "response_mime_type": "application/json",
            }
       model = genai.GenerativeModel(
             model_name="gemini-1.5-flash",
-            system_instruction="Analyze the user profile labelled as userprofile",
+            system_instruction="Analyze the user profile labelled as userprofile, you will be given a list of other peoples profiles labelled as candidates_data, from that list pick a person who has the most opposite personality of the userprofile candidate. Output Just their name and id",
             generation_config=generation_config,
         )
       userprofile=json.dumps(userprofile)
       candidates_data=json.dumps(candidates_data)
       response=model.generate_content("userprofile is"+userprofile+"candidates_data is"+candidates_data)
-      print(response.text)
       return HttpResponse(response.text)
       
 
