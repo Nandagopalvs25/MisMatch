@@ -97,6 +97,22 @@ const UploadModal = ({ onClose, onSuccess }) => {
             </div>
             <div className="flex flex-col gap-3 w-96 font-mono">
               <div className="flex flex-col">
+                <label>Age</label>
+                <input
+                  type="text"
+                  // placeholder="enter the url"
+                  // value={age}
+                  // onChange={(e) => setAge(e.target.value)}
+                  className="p-1 rounded-lg bg-white bg-opacity-30 outline-none"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Gender</label>
+                <select>
+                  <option>Hello</option>
+                </select>
+              </div>
+              <div className="flex flex-col">
                 <label>Interests</label>
                 {/* <input
                   type="text"

@@ -27,9 +27,13 @@ export default function HomePage() {
   const [interestValue, setInterestValue] = useState("");
   const [personalityValue, setPersonalityValue] = useState("");
   const [summary, setSummary] = useState("");
+  const [age, setAge] = useState();
+  const [gender, setGender] = useState("");
+  const [preferences, setPreferences] = useState("");
 
   const [arrayInterestsValue, setArrayInterestsValue] = useState([]);
   const [arrayPersonalityValue, setArrayPersonalityValue] = useState([]);
+  const [arrayExpectations, setArrayExpectations] = useState([]);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -58,7 +62,8 @@ export default function HomePage() {
   useEffect(() => {
     setArrayInterestsValue(interestValue?.split(","));
     setArrayPersonalityValue(personalityValue?.split(","));
-  }, [interestValue, personalityValue]);
+    setArrayExpectations(preferences?.split(","));
+  }, [interestValue, personalityValue, preferences]);
 
   const handleUploadSuccess = () => {
     setIsUserCreated(true);
@@ -91,6 +96,10 @@ export default function HomePage() {
         setSummary(response?.data?.summary);
         setInterestValue(response?.data?.interests);
         setPersonalityValue(response?.data?.personality);
+        setAge(response?.data?.age);
+        setGender(response?.data?.gender);
+        setProfileDetails(response?.data);
+        setPreferences(response?.data?.preferences);
         console.log("Profile fetched successfully...");
       } else {
         console.error("Invalid response data:", response.data);
@@ -178,9 +187,7 @@ export default function HomePage() {
       <div className="w-screen h-screen items-center justify-center flex">
         <div className="w-96 max-w-sm mx-auto bg-pink-200 rounded-3xl shadow-lg hover:scale-105 transition-all cursor-pointer text-center p-6">
           <div className="bg-gradient-to-r from-pink-400 to-red-500 text-white p-4 rounded-full mb-4 mx-auto w-24 h-24 flex items-center justify-center">
-            <span className="text-5xl font-bold">
-              {profileDetails?.name?.charAt(0)}
-            </span>
+            <span className="text-5xl font-bold">{profileDetails?.id}</span>
           </div>
 
           <h2 className="text-3xl font-bold text-pink-700 mb-2">
@@ -193,7 +200,7 @@ export default function HomePage() {
           <div className="my-4">
             <h3 className="text-xl font-semibold text-red-500">Interests</h3>
             <ul className="flex flex-wrap gap-2 justify-center mt-2">
-              {profileDetails?.interests.map((interest, index) => (
+              {arrayInterestsValue?.map((interest, index) => (
                 <li
                   key={index}
                   className="bg-pink-300 text-pink-900 rounded-full px-4 py-1 text-sm font-medium shadow-sm"
@@ -209,7 +216,7 @@ export default function HomePage() {
               Personalities
             </h3>
             <ul className="flex flex-wrap gap-2 justify-center mt-2">
-              {profileDetails?.personalities.map((personality, index) => (
+              {arrayPersonalityValue?.map((personality, index) => (
                 <li
                   key={index}
                   className="bg-pink-300 text-pink-900 rounded-full px-4 py-1 text-sm font-medium shadow-sm"
@@ -238,6 +245,9 @@ export default function HomePage() {
           interest_value={arrayInterestsValue}
           personality_value={arrayPersonalityValue}
           summaryy={summary}
+          agee={age}
+          genderr={gender}
+          expectationss={arrayExpectations}
         />
       )}
       {isMatchModal && (
