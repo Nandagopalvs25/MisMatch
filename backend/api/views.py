@@ -45,7 +45,6 @@ class Summary(APIView):
     
     
 class CreateProfile(APIView):
-    
     def post(self,request):
           user = User.objects.get(id=request.user.id)
           if(UserProfile.objects.filter(user=user).exists()):
@@ -57,6 +56,13 @@ class CreateProfile(APIView):
               profile=UserProfile.objects.create(user=user,summary=summary,interests=interest,personality=personality)
               return Response(status=status.HTTP_201_CREATED)
               
+    def get(self,request):
+         user = User.objects.get(id=request.user.id)
+         if(UserProfile.objects.filter(user=user).exists()):
+              profile= UserProfile.objects.get(user=user)
+              profile_data=ProfileSerializer(profile).data
+              return JsonResponse(profile_data,safe=False)
+
           
           
 class UpdateProfile(ModelViewSet):
@@ -65,7 +71,16 @@ class UpdateProfile(ModelViewSet):
 
 
         
-    
+class FindMatch(APIView):
+   def get(self,request):
+      user = User.objects.get(id=request.user.id)
+      user_data = []
+      profiles = UserProfile.objects.all()
+      
+
+
+
+        
 
     
 
