@@ -86,6 +86,7 @@ class FindMatch(APIView):
       for profile in profiles:
           user_info = {
             'username':profile.user.username,
+            'id':profile.user.id,
             'personality': profile.personality,
             'interests': profile.interests,
             'summary': profile.summary
@@ -99,20 +100,49 @@ class FindMatch(APIView):
             "top_p": 0.95,
             "top_k": 64,
             "max_output_tokens": 8192,
-            "response_mime_type": "text/plain",
+            "response_mime_type": "application/json",
            }
       model = genai.GenerativeModel(
             model_name="gemini-1.5-flash",
-            system_instruction="Analyze the user profile labelled as userprofile",
+            system_instruction="Analyze the user profile labelled as userprofile, you will be given a list of other peoples profiles labelled as candidates_data, from that list pick a person who has the most opposite personality of the userprofile candidate. Output Just their name and id",
             generation_config=generation_config,
         )
       userprofile=json.dumps(userprofile)
       candidates_data=json.dumps(candidates_data)
       response=model.generate_content("userprofile is"+userprofile+"candidates_data is"+candidates_data)
-      print(response.text)
       return HttpResponse(response.text)
       
+class AiChatWindow(APIView):
+    def post(self,request):
+              user = User.objects.get(id=request.user.id)
+              matched_id=request.data["id"]
+              prompt=request.data["prompt"]
 
+              matched_user=UserProfile.objects.get(user=User.objects.get(id=matched_id))
+              print(matched_user.user.username)
+              userprofile={
+                  "username":matched_user.user.username,
+                  "user_summary":matched_user.summary,
+                  "user_interests":matched_user.interests,
+                  "user_personality":matched_user.personality
+              }
+              userprofile=json.dumps(userprofile)
+              genai.configure(api_key=settings.GEMINI_KEY)
+              generation_config = {
+                "temperature": 1,
+                "top_p": 0.95,
+                "top_k": 64,
+                "max_output_tokens": 8192,
+                "response_mime_type": "application/json",
+              }
+              model = genai.GenerativeModel(
+              model_name="gemini-1.5-flash",
+              system_instruction="Model yourself as a person by analysing the information labelled as userprofile. Respond to prompt messages keeping the personailty mentioned in userprofile. Dont talk too much , keep sentences short to less than 60 characters",
+              generation_config=generation_config,
+              )
+              response=model.generate_content("userprofile:"+userprofile+"prompt:"+prompt)
+
+              return HttpResponse(response.text)
 
 
         
