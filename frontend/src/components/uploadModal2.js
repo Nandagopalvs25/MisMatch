@@ -2,22 +2,32 @@ import axios from "axios";
 import React, { useState, Component, useEffect } from "react";
 import { Chips } from "primereact/chips";
 import classNames from "classnames";
-
+import '../App.css'
 import { FaCheckCircle } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
-const UploadModal = ({ id, onClose }) => {
+const UploadModal = ({
+  profile_id,
+  interest_value,
+  personality_value,
+  summaryy,
+  onClose,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
-  const [summary, setSummary] = useState("");
-  const [interestValue, setInterestValue] = useState([]);
-  const [personalityValue, setPersonalityValue] = useState([]);
+  // const [profileId, setProfileId] = useState(profile_id || null);
+  const [summary, setSummary] = useState(summaryy || "");
+  const [interestValue, setInterestValue] = useState(interest_value || []);
+  const [personalityValue, setPersonalityValue] = useState(
+    personality_value || []
+  );
 
-  const handleAddPatient = async () => {
+  const updateUserProfile = async () => {
     if (isLoading) return;
     setIsLoading(true);
-    console.log("id: ", id);
+    console.log("ProfileId: ", profile_id);
 
     const key = localStorage.getItem("key");
 
@@ -36,11 +46,11 @@ const UploadModal = ({ id, onClose }) => {
       personality: stringPersonality,
     };
 
-    console.log("data: ", data);
+    console.log("update profile data: ", data);
 
     try {
       const response = await axios.patch(
-        "http://127.0.0.1:8000/updateProfile/5/",
+        `http://127.0.0.1:8000/updateProfile/${profile_id}/`,
         data,
         {
           headers: {
@@ -109,7 +119,7 @@ const UploadModal = ({ id, onClose }) => {
                   type="text"
                   value={summary}
                   onChange={(e) => setSummary(e.target.value)}
-                  className="p-1 rounded-lg bg-white bg-opacity-30 outline-none"
+                  className="p-1 rounded-lg bg-white bg-opacity-30 outline-none w-full max-w-md input-overflow object-contain"
                 />
               </div>
             </div>
@@ -119,10 +129,10 @@ const UploadModal = ({ id, onClose }) => {
                 className={`p-2 px-14 sm:px-20 rounded-2xl bg-gradient-to-r from-yellow-400 to-pink-500 text-white cursor-pointer ${
                   isLoading ? "cursor-not-allowed" : ""
                 }`}
-                onClick={handleAddPatient}
+                onClick={updateUserProfile}
                 // disabled={isLoading} // Disable button when loading
               >
-                {isLoading ? "Loading..." : "Add"}
+                {isLoading ? "Loading..." : "Update"}
               </button>
             </div>
           </div>
@@ -136,38 +146,3 @@ const UploadModal = ({ id, onClose }) => {
   );
 };
 export default UploadModal;
-
-const Tailwind = {
-  chips: {
-    root: ({ props }) => ({
-      className: classNames("flex", {
-        "opacity-60 select-none pointer-events-none cursor-default":
-          props.disabled,
-      }),
-    }),
-    container: {
-      className: classNames(
-        "m-0 py-1.5 px-3 list-none cursor-text overflow-hidden flex items-center flex-wrap",
-        "w-full",
-        "font-sans text-base text-gray-600 dark:text-white/70 bg-white dark:bg-gray-900 p-3 border border-gray-300 dark:border-blue-900/40 transition-colors duration-200 appearance-none rounded-lg",
-        "hover:border-blue-500 focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]"
-      ),
-    },
-    inputToken: {
-      className: classNames("py-1.5 px-0", "flex flex-1 inline-flex"),
-    },
-    input: {
-      className: classNames(
-        "font-sans text-base text-gray-700 dark:text-white/80 p-0 m-0",
-        "border-0 outline-none bg-transparent shadow-none rounded-none w-full"
-      ),
-    },
-    token: {
-      className: classNames(
-        "py-1 px-2 mr-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white/80 rounded-full",
-        "cursor-default inline-flex items-center"
-      ),
-    },
-    removeTokenIcon: "ml-2",
-  },
-};
