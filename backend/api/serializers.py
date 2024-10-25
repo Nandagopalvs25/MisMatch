@@ -6,6 +6,6 @@ from .models import UserProfile
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ["id","summary","interests","personality"]
+        fields = ["id","summary","interests","personality","age","preferences","gender"]
 
 
