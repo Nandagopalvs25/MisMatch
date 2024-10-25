@@ -29,7 +29,8 @@ DEBUG = True
 env=environ.Env()
 GEMINI_KEY=env("GEMINI_KEY")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
 
 
 # Application definition
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    'corsheaders',
+
 
 ]
 
@@ -61,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+      "corsheaders.middleware.CorsMiddleware",
 
 ]
 
@@ -92,7 +96,11 @@ AUTHENTICATION_BACKENDS = [
     
 ]
 WSGI_APPLICATION = 'backend.wsgi.application'
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
