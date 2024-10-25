@@ -14,3 +14,8 @@
 
 }
 
+.input-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* To ensure the text doesn't wrap */
+}

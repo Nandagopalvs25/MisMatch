@@ -6,7 +6,7 @@ import classNames from "classnames";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 
-const UploadModal = ({ id, onClose }) => {
+const UploadModal = ({ onClose, onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
 
@@ -28,10 +28,9 @@ const UploadModal = ({ id, onClose }) => {
   //   return `${day}/${month}/${year}`;
   // };
 
-  const handleAddPatient = async () => {
+  const handleAddProfile = async () => {
     if (isLoading) return;
     setIsLoading(true);
-    console.log("id: ", id);
 
     const key = localStorage.getItem("key");
 
@@ -50,11 +49,11 @@ const UploadModal = ({ id, onClose }) => {
       personality: stringPersonality,
     };
 
-    console.log("data: ", data);
+    console.log("create profile data: ", data);
 
     try {
-      const response = await axios.patch(
-        "http://127.0.0.1:8000/updateProfile/5/",
+      const response = await axios.post(
+        "http://127.0.0.1:8000/createProfile/",
         data,
         {
           headers: {
@@ -64,13 +63,15 @@ const UploadModal = ({ id, onClose }) => {
       );
 
       console.log("response: ", response);
+      console.log("response status: ", response?.status);
 
-      if (response) {
+      if (response?.status == 200) {
         setSuccessModal(true);
         setTimeout(() => {
           setSuccessModal(false);
           onClose();
         }, 2000);
+        onSuccess();
         // onLogin(); // Call the onLogin function to update the authentication state
       } else {
         console.error("Invalid response data:", response.data);
@@ -171,7 +172,7 @@ const UploadModal = ({ id, onClose }) => {
                 className={`p-2 px-14 sm:px-20 rounded-2xl bg-gradient-to-r from-yellow-400 to-pink-500 text-white cursor-pointer ${
                   isLoading ? "cursor-not-allowed" : ""
                 }`}
-                onClick={handleAddPatient}
+                onClick={handleAddProfile}
                 // disabled={isLoading} // Disable button when loading
               >
                 {isLoading ? "Loading..." : "Add"}
@@ -191,38 +192,3 @@ const UploadModal = ({ id, onClose }) => {
   );
 };
 export default UploadModal;
-
-const Tailwind = {
-  chips: {
-    root: ({ props }) => ({
-      className: classNames("flex", {
-        "opacity-60 select-none pointer-events-none cursor-default":
-          props.disabled,
-      }),
-    }),
-    container: {
-      className: classNames(
-        "m-0 py-1.5 px-3 list-none cursor-text overflow-hidden flex items-center flex-wrap",
-        "w-full",
-        "font-sans text-base text-gray-600 dark:text-white/70 bg-white dark:bg-gray-900 p-3 border border-gray-300 dark:border-blue-900/40 transition-colors duration-200 appearance-none rounded-lg",
-        "hover:border-blue-500 focus:outline-none focus:outline-offset-0 focus:shadow-[0_0_0_0.2rem_rgba(191,219,254,1)] dark:focus:shadow-[0_0_0_0.2rem_rgba(147,197,253,0.5)]"
-      ),
-    },
-    inputToken: {
-      className: classNames("py-1.5 px-0", "flex flex-1 inline-flex"),
-    },
-    input: {
-      className: classNames(
-        "font-sans text-base text-gray-700 dark:text-white/80 p-0 m-0",
-        "border-0 outline-none bg-transparent shadow-none rounded-none w-full"
-      ),
-    },
-    token: {
-      className: classNames(
-        "py-1 px-2 mr-2 bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white/80 rounded-full",
-        "cursor-default inline-flex items-center"
-      ),
-    },
-    removeTokenIcon: "ml-2",
-  },
-};
