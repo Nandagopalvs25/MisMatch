@@ -71,14 +71,13 @@ export default function SignupPage({ onLogin }) {
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            className="mx-auto h-40 w-auto"
-            src="/baymax2.png"
+            className="mx-auto h- w-60 aspect-auto"
+            src="/assets/logo2.png"
             alt="Your Company"
-          />
-         
+          />         
         </div>
 
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm  border-2 rounded-3xl p-5">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm  border-2 rounded-3xl p-5">
         <h2 className="mb-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Create a new Account
           </h2>
