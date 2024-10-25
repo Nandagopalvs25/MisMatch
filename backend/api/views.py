@@ -43,6 +43,7 @@ class Summary(APIView):
         print(response.text)
         return HttpResponse(response.text)
     
+    
 class CreateProfile(APIView):
     
     def post(self,request):
@@ -53,12 +54,7 @@ class CreateProfile(APIView):
               interest = request.data.get("interests","")
               summary= request.data.get("summary","")
               personality= request.data.get("personailty","")
-
               profile=UserProfile.objects.create(user=user,summary=summary,interests=interest,personality=personality)
-              #profile_data=ProfileSerializer(profile,many=False)
-              #interest=request.data["interest"]
-              #summary=request.data["summary"]
-              #return JsonResponse(profile_data.data,safe=False)
               return Response(status=status.HTTP_201_CREATED)
               
           
