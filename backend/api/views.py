@@ -74,19 +74,43 @@ class UpdateProfile(ModelViewSet):
 class FindMatch(APIView):
    def get(self,request):
       user = User.objects.get(id=request.user.id)
-      profile_id=UserProfile.objects.get(user=user.id)
-      user_data = []
-      profiles = UserProfile.objects.exclude(id=profile_id.id)
+      profile=UserProfile.objects.get(user=user.id)
+      userprofile={
+          'username':profile.user.username,
+          'personality':profile.personality,
+          'interests':profile.interests,
+          'summary':profile.summary
+      }
+      candidates_data = []
+      profiles = UserProfile.objects.exclude(id=profile.id)
       for profile in profiles:
           user_info = {
-              'username':profile.user.username,
+            'username':profile.user.username,
             'personality': profile.personality,
             'interests': profile.interests,
             'summary': profile.summary
            }
-          user_data.append(user_info)
-      print(user_data)
-      return HttpResponse(status=status.HTTP_200_OK)
+          candidates_data.append(user_info)
+      print(userprofile)
+      
+      genai.configure(api_key=settings.GEMINI_KEY)
+      generation_config = {
+            "temperature": 1,
+            "top_p": 0.95,
+            "top_k": 64,
+            "max_output_tokens": 8192,
+            "response_mime_type": "text/plain",
+           }
+      model = genai.GenerativeModel(
+            model_name="gemini-1.5-flash",
+            system_instruction="Analyze the user profile labelled as userprofile",
+            generation_config=generation_config,
+        )
+      userprofile=json.dumps(userprofile)
+      candidates_data=json.dumps(candidates_data)
+      response=model.generate_content("userprofile is"+userprofile+"candidates_data is"+candidates_data)
+      print(response.text)
+      return HttpResponse(response.text)
       
 
 
