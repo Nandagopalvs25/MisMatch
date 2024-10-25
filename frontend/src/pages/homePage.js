@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import UploadModal1 from "../components/uploadModal1";
 import MatchingModal from "../components/matchingModal";
 import UploadModal2 from "../components/uploadModal2";
+import ChatWindow from "../components/chatWindow";
 
 export default function HomePage() {
   const [isUploadModal1, setIsUploadModal1] = useState(false);
@@ -13,6 +15,8 @@ export default function HomePage() {
   const [isUserCreated, setIsUserCreated] = useState(
     localStorage.getItem("isUserCreated")
   );
+  const [matchedUser, setMatchedUser] = useState(null);
+  const [profileDetails, setProfileDetails] = useState(null);
 
   console.log("isUserCreated: ", isUserCreated);
 
@@ -27,11 +31,17 @@ export default function HomePage() {
   const [arrayInterestsValue, setArrayInterestsValue] = useState([]);
   const [arrayPersonalityValue, setArrayPersonalityValue] = useState([]);
 
+  const navigate = useNavigate();
   useEffect(() => {
     if (isUserCreated) {
       fetchUserProfile();
     }
+    setMatchedUser(JSON.parse(localStorage.getItem("matchedUser")));
   }, []);
+
+  useEffect(() => {
+    console.log("Matched User: ", matchedUser);
+  }, [matchedUser]);
 
   // useEffect(() => {
   //   fetchUserProfile();
@@ -94,6 +104,16 @@ export default function HomePage() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
+  const handleMatchComplete = (e) => {
+    setMatchedUser(e);
+    localStorage.setItem("matchedUser", JSON.stringify(e));
+    setIsMatchModal(false);
+  };
   return (
     <div className="w-screen h-screen bg-grad">
       <img
@@ -102,7 +122,8 @@ export default function HomePage() {
         alt="Mismatch"
       />
 
-      <div className="sidebar absolute left-0 top-60 px-10 w-96 flex flex-col gap-10">
+      <div className="sidebar absolute left-0 top-36 px-5 w-60 flex flex-col gap-10 items-center">
+        <img src="/assets/baymax.png" className="w-32"></img>
         <div>
           {isUserCreated ? (
             <button
@@ -129,9 +150,14 @@ export default function HomePage() {
             Create Match
           </button>
         </div>
-        {/* <button className="relative px-6 py-3 rounded-lg bg-pink-500 text-white font-semibold shadow-lg  transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 focus:scale-95 focus:bg-pink-600">
-          Find Love
-        </button> */}
+        <div>
+          <button
+            className="relative px-6 py-3 rounded-lg bg-pink-500 text-white font-semibold shadow-lg  transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 focus:scale-95 focus:bg-pink-600"
+            onClick={() => handleLogout()}
+          >
+            Logout
+          </button>
+        </div>
         {/* <button className="relative px-6 py-3 rounded-full bg-purple-500 text-white font-semibold shadow-md transition-all duration-300 ease-out transform hover:scale-105 hover:shadow-lg focus:scale-95 focus:shadow-md">
           <span className="absolute inset-0 rounded-full opacity-0 bg-pink-500 blur-md transition-opacity duration-300 hover:opacity-30"></span>
           Join Now
@@ -149,7 +175,56 @@ export default function HomePage() {
           Meet New People
         </button> */}
       </div>
+      <div className="w-screen h-screen items-center justify-center flex">
+        <div className="w-96 max-w-sm mx-auto bg-pink-200 rounded-3xl shadow-lg hover:scale-105 transition-all cursor-pointer text-center p-6">
+          <div className="bg-gradient-to-r from-pink-400 to-red-500 text-white p-4 rounded-full mb-4 mx-auto w-24 h-24 flex items-center justify-center">
+            <span className="text-5xl font-bold">
+              {profileDetails?.name?.charAt(0)}
+            </span>
+          </div>
 
+          <h2 className="text-3xl font-bold text-pink-700 mb-2">
+            {profileDetails?.name}
+          </h2>
+          <p className="text-sm text-gray-600">
+            {profileDetails?.age} years old, {profileDetails?.gender}
+          </p>
+
+          <div className="my-4">
+            <h3 className="text-xl font-semibold text-red-500">Interests</h3>
+            <ul className="flex flex-wrap gap-2 justify-center mt-2">
+              {profileDetails?.interests.map((interest, index) => (
+                <li
+                  key={index}
+                  className="bg-pink-300 text-pink-900 rounded-full px-4 py-1 text-sm font-medium shadow-sm"
+                >
+                  {interest}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="my-4">
+            <h3 className="text-xl font-semibold text-red-500">
+              Personalities
+            </h3>
+            <ul className="flex flex-wrap gap-2 justify-center mt-2">
+              {profileDetails?.personalities.map((personality, index) => (
+                <li
+                  key={index}
+                  className="bg-pink-300 text-pink-900 rounded-full px-4 py-1 text-sm font-medium shadow-sm"
+                >
+                  {personality}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <button className="mt-6 px-6 py-2 bg-gradient-to-r from-red-400 to-pink-600 text-white font-semibold rounded-lg shadow-lg transition-transform transform hover:scale-110 focus:outline-none">
+            Send Love ❤️
+          </button>
+        </div>
+      </div>
       {isUploadModal1 && (
         <UploadModal1
           onClose={() => setIsUploadModal1(false)}
@@ -165,7 +240,17 @@ export default function HomePage() {
           summaryy={summary}
         />
       )}
-      {isMatchModal && <MatchingModal />}
+      {isMatchModal && (
+        <MatchingModal onMatchComplete={(e) => handleMatchComplete(e)} />
+      )}
+
+      {matchedUser && matchedUser.id && (
+        <ChatWindow
+          name={matchedUser.name}
+          profileId={matchedUser.id}
+          // onClose={handleCloseChat}
+        />
+      )}
     </div>
   );
 }
