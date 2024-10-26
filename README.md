@@ -34,10 +34,30 @@ For Software:
 ### Implementation
 For Software:
 # Installation
-[commands]
+## Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Nandagopalvs25/MisMatch.git
+   ```
+2. Navigate to the backend directory:
+   ```bash
+     cd MisMatch/backend
+   
+    ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
 
-# Run
-[commands]
+   ```
+4. Create a .env file in the directory with
+   ```
+   GEMINI_KEY="your gemini api key here"
+   ```
+4. Run the Django server:
+   ```bash
+   python manage.py runserver
+   ```
+
 
 ### Project Documentation
 For Software:
@@ -68,16 +88,15 @@ For Software:
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+[https://youtu.be/WZYhUe-bxuY] <== Video Link
 
 # Additional Demos
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- [Nandagopal]: [Backend Developer]
+- [Amit]: [Frontend Developer]
+- [Abhijith]: [UI design]
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
