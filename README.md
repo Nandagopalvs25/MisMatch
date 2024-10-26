@@ -19,14 +19,14 @@ MisMatch is a dating app where we are bringing users together with people whose 
 In a world where dating apps relentlessly pursue “perfect matches,” people often find themselves stuck in repetitive, predictable conversations with individuals who share similar interests, goals, and values. This approach overlooks the unpredictability, excitement, and sometimes even hilarity that come from connecting with someone truly different. How fun it would be to meet a person who is truly the opposite and incompatible for you.
 
 ### The Solution (that nobody asked for)
-We built MisMatch where, using GenAI  we  read through user profiles and find exactly the things that shouldn’t match. The algorithm analyses the  users’ preferences and interests, then pairs individuals with contrasting attributes to see what happens.  Just for fun, an AI chatbot that mirrors their match’s profile and personality will talk to them when they message. The chatbot also has a memory system using which it can remember past conversations, making the experience more realistic.
+We've built MisMatch, where, using GenAI  we  read through user profiles and find exactly the things that shouldn’t match. The algorithm analyses the  users’ preferences and interests, then pairs individuals with contrasting attributes to see what happens.  Just for fun, an AI chatbot that mirrors their match’s profile and personality will talk to them when they message. The chatbot also has a memory system using which it can remember past conversations, making the experience more realistic.
 
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
 - Languages- Python, Javascript, Html , Css
-- Frameworks- Django, DJango Rest, React, Tailwind css
+- Frameworks- Django, DJango Rest, ReactJs, TailwindCSS
 - Libraries- Material UI
 - Tools- Gemini api
 
