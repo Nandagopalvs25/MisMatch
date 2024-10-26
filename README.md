@@ -26,9 +26,9 @@ We've built MisMatch, where, using GenAI  we  read through user profiles and fin
 ### Technologies/Components Used
 For Software:
 - Languages- Python, Javascript, Html , Css
-- Frameworks- Django, DJango Rest, ReactJs, TailwindCSS
-- Libraries- Material UI
-- Tools- Gemini api
+- Frameworks- Django, DJango Rest, ReactJs
+- Libraries- Material UI, TailwindCSS
+- Tools- Gemini 1.5 Flash API
 
 
 ### Implementation
