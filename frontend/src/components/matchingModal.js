@@ -97,7 +97,7 @@ const MatchingModal = ({ onMatchComplete }) => {
               <h3 className="text-lg font-bold text-gray-800">
                 {matchedUser?.name}
               </h3>
-              <p className="text-gray-600">Age: {matchedUser?.id}</p>
+              <p className="text-gray-600">Age: {matchedUser?.age}</p>
               {/* <p className="text-gray-600 mt-2">Bio: {matchedUser.bio}</p> */}
             </div>
           )}

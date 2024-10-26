@@ -91,6 +91,7 @@ class FindMatch(APIView):
           user_info = {
             'username':profile.user.username,
             'id':profile.user.id,
+            'age':profile.age,
             'personality': profile.personality,
             'preference_in_partner':profile.preferences,
             'interests': profile.interests,
@@ -109,7 +110,7 @@ class FindMatch(APIView):
            }
       model = genai.GenerativeModel(
             model_name="gemini-1.5-flash",
-            system_instruction="Analyze the user profile labelled as userprofile, you will be given a list of other peoples profiles labelled as candidates_data, from that list pick a person who has the most opposite personality of the userprofile candidate. Output Just their name and id",
+            system_instruction="Analyze the user profile labelled as userprofile, you will be given a list of other peoples profiles labelled as candidates_data, from that list pick a person who has the most opposite personality of the userprofile candidate. Output Just their name,age and id with labels name,age and id",
             generation_config=generation_config,
         )
       userprofile=json.dumps(userprofile)
@@ -144,7 +145,7 @@ class AiChatWindow(APIView):
          
               model = genai.GenerativeModel(
               model_name="gemini-1.5-flash",
-              system_instruction="Model yourself as a person by using  the information labeled as userprofile. Your personality is labelled as personality, and refere to the summary for more information about your character.Respond to prompt messages keeping the personality mentioned in userprofile.Keep sentences short (less than 60 characters) if the user asks for more set limit to less than 120 characters. ",
+              system_instruction="Model yourself as a person by using  the information labeled as userprofile. Your personality is labelled as personality, and refere to the summary for more information about your character.Respond to prompt messages keeping the personality mentioned in userprofile.Keep sentences short (less than 60 characters) if the user asks for more set limit to less than 120 characters. Keep conversations simple and human like",
               generation_config=generation_config,
               )
               convo_history= Conversation.objects.filter(user=user).order_by('-timestamp')
@@ -152,7 +153,7 @@ class AiChatWindow(APIView):
               for i in convo_history:
                   convo=convo+"\n"+"user:"+i.user_message+"  bot:"+i.bot_response
               print(convo)
-              response=model.generate_content("remember this conversation history, you are the bot"+convo+"userprofile:"+userprofile+"prompt:"+prompt)
+              response=model.generate_content("remember this conversation history, you are the bot pretending to be the person"+convo+"userprofile:"+userprofile+"prompt:"+prompt)
               Conversation.objects.create(user=user,user_message=prompt,bot_response=response.text)
               return HttpResponse(response.text)
 
