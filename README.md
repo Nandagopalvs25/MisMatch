@@ -43,20 +43,27 @@ For Software:
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot1](https://cdn.discordapp.com/attachments/1227845123619033150/1299536794584481812/Screenshot_2024-10-26_062449.png?ex=671d8f74&is=671c3df4&hm=e80cce5ff96f42cc5476d4d8ebfa98de0d49218f1e659e2b749b1ff19e89f803&)
+*Login and Signup Screen*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot2](https://media.discordapp.net/attachments/1227845123619033150/1299536461682573383/Screenshot_2024-10-26_061249.png?ex=671d8f24&is=671c3da4&hm=1bb305b4c70b6f93243aa22e8cf96039cbc40038ec60c6b9c095dc274b36c10b&=&format=webp&quality=lossless&width=1313&height=662)
+*Profile Page where you can view basic information*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot3](https://media.discordapp.net/attachments/1227845123619033150/1299536462294810664/Screenshot_2024-10-26_061324.png?ex=671d8f24&is=671c3da4&hm=28dd268e0eb101b673294be67e19205d1beebf22e884b67c78dba1b11895f354&=&format=webp&quality=lossless&width=1322&height=662)
+*Edit your Interests, Traits you are looking in  your Partner, and more information about yourself*
+
+![Screenshot3](https://media.discordapp.net/attachments/1227845123619033150/1299536462781612032/Screenshot_2024-10-26_061406.png?ex=671d8f24&is=671c3da4&hm=a220f08088cda9d7450764c5a1462995b3c6761555f6fb5fa38a2a6389217cd6&=&format=webp&quality=lossless&width=1297&height=662)
+*Find the most perfect (imperfect) match *
+
+![Screenshot3](https://media.discordapp.net/attachments/1227845123619033150/1299536463276281946/Screenshot_2024-10-26_062302.png?ex=671d8f25&is=671c3da5&hm=f04fb80c0a29f70587055778d3f0266921a501169222fc46a1dd0125c71ba93a&=&format=webp&quality=lossless&width=1338&height=662
+)
+*Chat with the matched persons  *
+
+
 
 # Diagrams
 [Workflow]
 ![Alt text](https://media.discordapp.net/attachments/1227845123619033150/1299530669785092187/lastmiss.png?ex=671d89bf&is=671c383f&hm=6e256cb919df5b76a0c043fb872d56127f47ee9139473834b1aae0fd817fd639&=&format=webp&quality=lossless&width=687&height=318)
-
-
 
 
 ### Project Demo
