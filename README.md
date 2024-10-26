@@ -13,10 +13,10 @@
 - Member 3: Abhijith U - TKM College of Engineering
 
 ### Project Description
-[2-3 lines about what your project does]
+MisMatch is a dating app where we are bringing users together with people whose interests, values, and personalities are deliberately incompatible with their own. (users wouldnt know). When the use tries to message the matched profile, A AI chatbot impersonating the person will talk to them. (they wont find out any time soon that its a chatbot).
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+In a world where dating apps relentlessly pursue “perfect matches,” people often find themselves stuck in repetitive, predictable conversations with individuals who share similar interests, goals, and values. This approach overlooks the unpredictability, excitement, and sometimes even hilarity that come from connecting with someone truly different. How fun it would be to meet a person who is truly the opposite and incompatible for  you.
 
 ### The Solution (that nobody asked for)
 [How are you solving it? Keep it fun!]
