@@ -6,6 +6,7 @@ const MatchingModal = ({ onMatchComplete }) => {
   const [matchedUser, setMatchedUser] = useState(null);
   const [tempUser, setTempUser] = useState(null);
   const [swipeInterval, setSwipeInterval] = useState(null);
+  const [errorText, setErrorText] = useState("");
 
   const placeholderProfiles = [
     { name: "Anjali", age: 25 },
@@ -69,6 +70,8 @@ const MatchingModal = ({ onMatchComplete }) => {
       startMatching();
     } else if (matchedUser) {
       closeAfterMatch();
+    } else {
+      setErrorText("Failed to Match perfect pair. Try again.");
     }
 
     return () => {
@@ -101,6 +104,7 @@ const MatchingModal = ({ onMatchComplete }) => {
               {/* <p className="text-gray-600 mt-2">Bio: {matchedUser.bio}</p> */}
             </div>
           )}
+          {/* {errorText && <span className="text-red-500">{errorText}</span>} */}
         </div>
       </div>
     </div>

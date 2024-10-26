@@ -13,6 +13,9 @@ const UploadModal = ({ onClose, onSuccess }) => {
   const [summary, setSummary] = useState("");
   const [interestValue, setInterestValue] = useState([]);
   const [personalityValue, setPersonalityValue] = useState([]);
+  const [age, setAge] = useState();
+  const [expectations, setExpectations] = useState([]);
+  const [gender, setGender] = useState([]);
 
   // useEffect(() => {
   //   console.log("chips:", value);
@@ -42,11 +45,15 @@ const UploadModal = ({ onClose, onSuccess }) => {
 
     const stringInterest = interestValue.join(", ");
     const stringPersonality = personalityValue.join(", ");
+    const stringExpectstions = expectations.join(", ");
 
     const data = {
       summary: summary,
       interests: stringInterest,
       personality: stringPersonality,
+      age: age,
+      gender: gender,
+      preferences: stringExpectstions,
     };
 
     console.log("create profile data: ", data);
@@ -96,21 +103,55 @@ const UploadModal = ({ onClose, onSuccess }) => {
               <IoClose onClick={onClose} size={40} className="cursor-pointer" />
             </div>
             <div className="flex flex-col gap-3 w-96 font-mono">
-              <div className="flex flex-col">
-                <label>Age</label>
+              <div className="flex gap-1 items-center">
+                <label>Age: </label>
                 <input
                   type="text"
                   // placeholder="enter the url"
-                  // value={age}
-                  // onChange={(e) => setAge(e.target.value)}
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
                   className="p-1 rounded-lg bg-white bg-opacity-30 outline-none"
                 />
               </div>
+              <div className="flex gap-2 items-center">
+                <label>Gender: </label>
+                <div className="flex items-center space-x-4">
+                  <label className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="male"
+                      className="form-radio text-pink-500"
+                    />
+                    <span>Male</span>
+                  </label>
+                  <label className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="female"
+                      className="form-radio text-pink-500"
+                    />
+                    <span>Female</span>
+                  </label>
+                </div>
+              </div>
               <div className="flex flex-col">
-                <label>Gender</label>
-                <select>
-                  <option>Hello</option>
-                </select>
+                <label>Expectations in partner</label>
+                {/* <textarea
+                  type="text"
+                  value={expectations}
+                  onChange={(e) => setExpectations(e.target.value)}
+                  className="p-1 rounded-lg bg-white bg-opacity-30 outline-none w-full max-w-md input-overflow object-contain"
+                /> */}
+                <div className="card p-fluid">
+                  <Chips
+                    value={expectations}
+                    onChange={(e) => setExpectations(e.value)}
+                    separator=","
+                    className="flex gap-2 space-x-2 w-full bg-white bg-opacity-30 rounded-lg p-1"
+                  />
+                </div>
               </div>
               <div className="flex flex-col">
                 <label>Interests</label>

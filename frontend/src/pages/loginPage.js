@@ -45,11 +45,11 @@ export default function LoginPage({ onLogin }) {
         console.log("key: ", key);
         localStorage.setItem("key", key);
         setIsSuccessModal(true);
+        onLogin(); // Call the onLogin function to update the authentication state
         setTimeout(() => {
           setIsSuccessModal(false);
           navigate("/");
         }, 2000);
-        // onLogin(); // Call the onLogin function to update the authentication state
       } else if (
         response?.data?.non_field_errors?.[0] ==
         "Unable to log in with provided credentials."
@@ -84,11 +84,11 @@ export default function LoginPage({ onLogin }) {
     <div className="w-screen h-screen overflow-hidden bg-grad">
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
+          <img
             className="mx-auto h- w-60 aspect-auto"
             src="/assets/logo2.png"
             alt="Your Company"
-          /> 
+          />
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm border-2 rounded-3xl p-5">
