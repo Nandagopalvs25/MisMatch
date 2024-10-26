@@ -13,10 +13,10 @@
 - Member 3: Abhijith U - TKM College of Engineering
 
 ### Project Description
-MisMatch is a dating app where we are bringing users together with people whose interests, values, and personalities are deliberately incompatible with their own. (users wouldnt know). When the use tries to message the matched profile, A AI chatbot impersonating the person will talk to them. (they wont find out any time soon that its a chatbot).
+MisMatch is a dating app where we are bringing users together with people whose interests, values, and personalities are deliberately incompatible with their own, (users wouldnt know). Users can then chat with the matched person using our chatWindow. But the catch comes in that they are actually not interacting with a real person on the other side, instead it will be our AI based chatBot impersonating the actual user based on his/her profile details, (users wouldn't know, even this 😜).
 
 ### The Problem (that doesn't exist)
-In a world where dating apps relentlessly pursue “perfect matches,” people often find themselves stuck in repetitive, predictable conversations with individuals who share similar interests, goals, and values. This approach overlooks the unpredictability, excitement, and sometimes even hilarity that come from connecting with someone truly different. How fun it would be to meet a person who is truly the opposite and incompatible for  you.
+In a world where dating apps relentlessly pursue “perfect matches,” people often find themselves stuck in repetitive, predictable conversations with individuals who share similar interests, goals, and values. This approach overlooks the unpredictability, excitement, and sometimes even hilarity that come from connecting with someone truly different. How fun it would be to meet a person who is truly the opposite and incompatible for you.
 
 ### The Solution (that nobody asked for)
 We built MisMatch where, using GenAI  we  read through user profiles and find exactly the things that shouldn’t match. The algorithm analyses the  users’ preferences and interests, then pairs individuals with contrasting attributes to see what happens.  Just for fun, an AI chatbot that mirrors their match’s profile and personality will talk to them when they message. The chatbot also has a memory system using which it can remember past conversations, making the experience more realistic.
