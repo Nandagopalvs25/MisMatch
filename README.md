@@ -90,8 +90,7 @@ For Software:
 # Video
 [https://youtu.be/WZYhUe-bxuY] <== Video Link
 
-# Additional Demos
-[Add any extra demo materials/links]
+
 
 ## Team Contributions
 - [Nandagopal]: [Backend Developer]
