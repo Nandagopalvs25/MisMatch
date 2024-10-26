@@ -53,8 +53,9 @@ For Software:
 *Add caption explaining what this shows*
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+[Workflow]
+![Alt text](https://media.discordapp.net/attachments/1227845123619033150/1299530669785092187/lastmiss.png?ex=671d89bf&is=671c383f&hm=6e256cb919df5b76a0c043fb872d56127f47ee9139473834b1aae0fd817fd639&=&format=webp&quality=lossless&width=687&height=318)
+
 
 
 
