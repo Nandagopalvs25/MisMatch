@@ -32,9 +32,9 @@ For Software:
 
 
 ### Implementation
-For Software:
+We have used Django to store and retrieve user related information.React with tailwind css for the frontend. Each user has his/her own profiles where they can list their interests, personalities, and what they are looking for in their partner. When they click on find a match, we use gen ai to analyse and find the most incompatible profile . When the user tries to message the matched user, an AI chatbot that mirrors their match’s profile and personality will talk to them. We are using gemini to create the chatbot based on the users profile.
 # Installation
-## Setup
+## Backend Setup
 1. Clone the repository:
    ```bash
    git clone https://github.com/Nandagopalvs25/MisMatch.git
@@ -62,7 +62,7 @@ For Software:
 ### Project Documentation
 For Software:
 
-# Screenshots (Add at least 3)
+# Screenshots 
 ![Screenshot1](https://cdn.discordapp.com/attachments/1227845123619033150/1299536794584481812/Screenshot_2024-10-26_062449.png?ex=671d8f74&is=671c3df4&hm=e80cce5ff96f42cc5476d4d8ebfa98de0d49218f1e659e2b749b1ff19e89f803&)
 *Login and Signup Screen*
 
@@ -83,7 +83,7 @@ For Software:
 
 # Diagrams
 [Workflow]
-![Alt text](https://media.discordapp.net/attachments/1227845123619033150/1299530669785092187/lastmiss.png?ex=671d89bf&is=671c383f&hm=6e256cb919df5b76a0c043fb872d56127f47ee9139473834b1aae0fd817fd639&=&format=webp&quality=lossless&width=687&height=318)
+![Alt text](https://media.discordapp.net/attachments/1227845123619033150/1299555658659659826/MIsmatch_Diagram.png?ex=671da105&is=671c4f85&hm=f59497f7411f4673fb69c079ac6dc3181d6542664f642d89ee68606d031c1737&=&format=webp&quality=lossless&width=687&height=318)
 
 
 ### Project Demo
