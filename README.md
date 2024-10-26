@@ -57,7 +57,7 @@ For Software:
 
 ![Screenshot3](https://media.discordapp.net/attachments/1227845123619033150/1299536463276281946/Screenshot_2024-10-26_062302.png?ex=671d8f25&is=671c3da5&hm=f04fb80c0a29f70587055778d3f0266921a501169222fc46a1dd0125c71ba93a&=&format=webp&quality=lossless&width=1338&height=662
 )
-*Chat with the matched persons  *
+*Chat with the matched person  *
 
 
 
