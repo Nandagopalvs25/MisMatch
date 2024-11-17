@@ -1,6 +1,15 @@
 <img width="1280" alt="readme-banner" src="https://github.com/user-attachments/assets/35332e92-44cb-425b-9dff-27bcf1023c6c">
 
 # MisMatch 🎯
+https://mismatch-frontend.vercel.app <br/>
+Find the love of your life today!
+
+Sample credentials, if you are too lazy to setup your profile.  <br/>
+username: Joe  <br/>
+password: nandu123  <br/>
+
+For viewing the backend admin panel, please contact us directly since we cant post the admin credentiials publicly. <br/>
+
 
 # Video
 [https://youtu.be/WZYhUe-bxuY] <== Video Link
