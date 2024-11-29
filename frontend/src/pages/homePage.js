@@ -124,6 +124,11 @@ export default function HomePage() {
     localStorage.setItem("matchedUser", JSON.stringify(e));
     setIsMatchModal(false);
   };
+
+  const handleUploadModal2Close = () => {
+    setIsUploadModal2(false);
+    fetchUserProfile();
+  };
   return (
     <div className="w-screen h-screen bg-grad">
       <img
@@ -137,14 +142,14 @@ export default function HomePage() {
         <div>
           {isUserCreated ? (
             <button
-              className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
+              className="relative outline-none px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
               onClick={() => setIsUploadModal2(true)}
             >
               Update Profile
             </button>
           ) : (
             <button
-              className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
+              className="relative outline-none px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
               onClick={() => setIsUploadModal1(true)}
             >
               Create Profile
@@ -154,7 +159,7 @@ export default function HomePage() {
 
         <div>
           <button
-            className="relative px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
+            className="relative  outline-none px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-400 to-pink-500 text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:shadow-lg focus:scale-95"
             onClick={() => setIsMatchModal(true)}
           >
             Create Match
@@ -162,7 +167,7 @@ export default function HomePage() {
         </div>
         <div>
           <button
-            className="relative px-6 py-3 rounded-lg bg-pink-500 text-white font-semibold shadow-lg  transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 focus:scale-95 focus:bg-pink-600"
+            className="relative outline-none px-6 py-3 rounded-lg bg-pink-500 text-white font-semibold shadow-lg  transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 focus:scale-95 focus:bg-pink-600"
             onClick={() => handleLogout()}
           >
             Logout
@@ -241,7 +246,7 @@ export default function HomePage() {
       )}
       {isUploadModal2 && (
         <UploadModal2
-          onClose={() => setIsUploadModal2(false)}
+          onClose={() => handleUploadModal2Close()}
           profile_id={profileId}
           interest_value={arrayInterestsValue}
           personality_value={arrayPersonalityValue}
@@ -261,7 +266,7 @@ export default function HomePage() {
           profileId={matchedUser.id}
           // onClose={handleCloseChat}
         />
-      )}      
+      )}
     </div>
   );
 }
